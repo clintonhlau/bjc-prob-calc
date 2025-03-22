@@ -7,6 +7,7 @@ from itertools import chain
 # Value = Recommended move
 strategy = {}
 
+# Hard Hands
 for total in range(4, 9):
     strategy[('hard', total, None, 2, range(2, 12))] = 'Hit'
 
@@ -40,6 +41,8 @@ for dealer_upcard in [8, 11]:
 
 for total in range(18, 22):
     strategy[('hard', total, None, 2, range(2, 12))] = 'Stand'
+
+# Soft Hands
 
 # === Game Logic Section ===
 
@@ -77,19 +80,54 @@ def get_recommendation(player_hand, dealer_card):
         dealer_value = 11
     else:
         dealer_value = int(dealer_value)
-    
-    # Example rule: Auto-hit under 12
-    if total <= 11:
-        return "Hit"
-    elif total >= 17:
-        return "Stand"
-    elif 12 <= total <= 16:
-        if dealer_value >= 7:
-            return "Hit"
+
+    ranks = [card[0] for card in player_hand]
+    card_count = len(player_hand)
+    total = calculate_hand_value(player_hand)
+
+    if card_count == 2 and ranks[0] == ranks[1]:
+        hand_type = 'pair'
+        if ranks[0] in ['Jack', 'Queen', 'King']:
+            pair_value = 10
+        elif ranks[0] == 'Ace':
+            pair_value = 1
         else:
-            return "Stand"
+            pair_value = int(ranks[0])
+    
+    elif 'Ace' in ranks:
+        hand_type = 'soft'
+        pair_value = None
     else:
-        return "Stand"
+        hand_type = 'hard'
+        pair_value = None
+    
+    # Search through strategy dictionary for recommendation
+    for key, move in strategy.items():
+        k_hand_type, k_total, k_pair, k_card_count, k_dealer_upcard = key
+
+        if hand_type != k_hand_type:
+            continue
+
+        if hand_type == 'pair':
+            if pair_value != k_pair:
+                continue
+        else:
+            if total != k_total:
+                continue
+
+        if card_count != k_card_count:
+            continue
+
+        if isinstance(k_dealer_upcard, range):
+            if dealer_value not in k_dealer_upcard:
+                continue
+        elif dealer_value != k_dealer_upcard:
+            continue
+
+        return move
+    
+    return 'No rule found'
+    
 
 # === UI Section ===
 
