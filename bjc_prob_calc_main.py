@@ -2,14 +2,67 @@ import tkinter as tk
 import random
 from itertools import chain
 import json
+import os
+import numpy as np
 
+# === Set Working Direction ===
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+random = np.random.randint(5, 10)
+print(random)
 # === Strategy Guide ===
 # Key = (hand_type, player_total, pair_value, card_count, dealer_upcard)
 # Value = Recommended move
+# 3 Card Strategies
+strategy ={}
 
+for total in [9, 12]:
+    strategy[('hard', total, None, 3, range(2, 12))] = 'Hit'
+
+for dealer_upcard in chain([2], range(7, 12)):
+    strategy[('hard', 10, None, 3, dealer_upcard)] = 'Hit'
+for dealer_upcard in range(3, 7):
+    strategy[('hard', 10, None, 3, dealer_upcard)] = 'Double'
+
+for dealer_upcard in range(2, 7):
+    strategy[('hard', 11, None, 3, dealer_upcard)] = 'Double'
+for dealer_upcard in range(7, 12):
+    strategy[('hard', 11, None, 3, dealer_upcard)] = 'Hit'
+
+for dealer_upcard in chain([2], range(7, 12)):
+    strategy[('hard', 13, None, 3, dealer_upcard)] = 'Hit'
+for dealer_upcard in range(3, 7):
+    strategy[('hard', 13, None, 3, dealer_upcard)] = 'Stand'
+
+# === Load Strategies JSON files ===
+def load_strategy_from_json(file_path):
+    strategy = {}
+
+    with open(file_path, 'r') as f:
+        json_data = json.load(f)
+    
+    for entry in json_data:
+        hand_type = entry['hand_type']
+        player_total = entry['player_total']
+        pair_value = entry['pair_value']
+        card_count = entry['card_count']
+        dealer_upcard_start = entry['dealer_upcard_start']
+        dealer_upcard_end = entry['dealer_upcard_end']
+        recommendation = entry['recommendation']
+
+        if dealer_upcard_start == dealer_upcard_end:
+            dealer_upcard = dealer_upcard_start
+        else:
+            dealer_upcard = range(dealer_upcard_start, dealer_upcard_end + 1)
+
+        strategy[(hand_type, player_total, pair_value, card_count, dealer_upcard)] = recommendation
+    
+    return strategy
+
+two_card_strategy = load_strategy_from_json('strategies/2_card_strategy.json')
+strategy = {**two_card_strategy}
 
 # === Game Logic Section ===
-
 def create_deck():
     suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
     ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
@@ -26,7 +79,7 @@ def calculate_hand_value(hand):
             value += int(rank)
         elif rank in ['Jack', 'Queen', 'King']:
             value += 10
-        else:  # Ace
+        else: 
             ace_count += 1
             value += 11
     
@@ -65,7 +118,7 @@ def get_recommendation(player_hand, dealer_card):
         pair_value = None
     
     # Search through strategy dictionary for recommendation
-    for key, move in strategy.items():
+    for key, recommendation in strategy.items():
         k_hand_type, k_total, k_pair, k_card_count, k_dealer_upcard = key
 
         if hand_type != k_hand_type:
@@ -87,9 +140,9 @@ def get_recommendation(player_hand, dealer_card):
         elif dealer_value != k_dealer_upcard:
             continue
 
-        return move
+        return recommendation, total
     
-    return 'No rule found'
+    return 'No recommendation found', total
     
 
 # === UI Section ===
@@ -108,10 +161,10 @@ def deal_cards():
     dealer_hidden_card = deck.pop()  # Hidden initially
     
     # Update UI
-    player_label.config(text=f"Player Hand: {player_hand}")
+    recommendation, total = get_recommendation(player_hand, dealer_hand[0])
+
+    player_label.config(text=f"Player Hand: {total}, {player_hand}")
     dealer_label.config(text=f"Dealer's Visible Card: {dealer_hand[0]}")
-    
-    recommendation = get_recommendation(player_hand, dealer_hand[0])
     decision_label.config(text=f"Recommendation: {recommendation}")
 
 # Main Window Setup
