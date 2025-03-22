@@ -1,0 +1,749 @@
+[
+    {
+        "hand_type": "hard",
+        "player_total": 9,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 12,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 2,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 9,
+        "dealer_upcard_end": 9,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 10,
+        "dealer_upcard_end": 10,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 3,
+        "dealer_upcard_end": 3,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 4,
+        "dealer_upcard_end": 4,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 5,
+        "dealer_upcard_end": 5,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 2,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 3,
+        "dealer_upcard_end": 3,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 4,
+        "dealer_upcard_end": 4,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 5,
+        "dealer_upcard_end": 5,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Double"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 9,
+        "dealer_upcard_end": 9,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 10,
+        "dealer_upcard_end": 10,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 2,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 9,
+        "dealer_upcard_end": 9,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 10,
+        "dealer_upcard_end": 10,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 3,
+        "dealer_upcard_end": 3,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 4,
+        "dealer_upcard_end": 4,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 5,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 14,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 15,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 16,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 14,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 15,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 16,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 16,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 16,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 2,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 3,
+        "dealer_upcard_end": 3,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 4,
+        "dealer_upcard_end": 4,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 5,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 9,
+        "dealer_upcard_end": 9,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 10,
+        "dealer_upcard_end": 10,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 18,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 20,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "hard",
+        "player_total": 21,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 2,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 3,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 4,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 5,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 6,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 7,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 8,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 9,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 10,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 11,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 12,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 13,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 14,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 15,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 16,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 17,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 18,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 2,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 3,
+        "dealer_upcard_end": 3,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 4,
+        "dealer_upcard_end": 4,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 5,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 7,
+        "dealer_upcard_end": 7,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 8,
+        "dealer_upcard_end": 8,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 9,
+        "dealer_upcard_end": 9,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 10,
+        "dealer_upcard_end": 10,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 19,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 11,
+        "dealer_upcard_end": 11,
+        "recommendation": "Hit"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 20,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "soft",
+        "player_total": 21,
+        "pair_value": null,
+        "card_count": 3,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 11,
+        "recommendation": "Stand"
+    }
+]

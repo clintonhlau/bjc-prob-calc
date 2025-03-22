@@ -3,13 +3,11 @@ import random
 from itertools import chain
 import json
 import os
-import numpy as np
+from bjc_strategy_loader import load_strategy_from_json
 
 # === Set Working Direction ===
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-random = np.random.randint(5, 10)
-print(random)
 # === Strategy Guide ===
 # Key = (hand_type, player_total, pair_value, card_count, dealer_upcard)
 # Value = Recommended move
@@ -34,33 +32,66 @@ for dealer_upcard in chain([2], range(7, 12)):
 for dealer_upcard in range(3, 7):
     strategy[('hard', 13, None, 3, dealer_upcard)] = 'Stand'
 
-# === Load Strategies JSON files ===
-def load_strategy_from_json(file_path):
-    strategy = {}
+for total in [14, 15, 16]:
+    strategy[('hard', total, None, 3, range(2, 7))] = 'Stand'
+for total in [14, 15]:
+    strategy[('hard', total, None, 3, range(7, 12))] = 'Hit'
 
-    with open(file_path, 'r') as f:
-        json_data = json.load(f)
-    
-    for entry in json_data:
-        hand_type = entry['hand_type']
-        player_total = entry['player_total']
-        pair_value = entry['pair_value']
-        card_count = entry['card_count']
-        dealer_upcard_start = entry['dealer_upcard_start']
-        dealer_upcard_end = entry['dealer_upcard_end']
-        recommendation = entry['recommendation']
+for dealer_upcard in [7, 8, 11]:
+    strategy[('hard', 16, None, 3, dealer_upcard)] = 'Hit'
 
-        if dealer_upcard_start == dealer_upcard_end:
-            dealer_upcard = dealer_upcard_start
+for dealer_upcard in range(2, 11):
+    strategy[('hard', 17, None, 3, dealer_upcard)] = 'Stand'
+strategy[('hard', 17, None, 3, 11)] = 'Hit'
+
+for total in range(18, 22):
+    strategy[('hard', total, None, 3, range(2, 12))] = 'Stand'
+
+for total in range(2, 19):
+    strategy[('soft', total, None, 3, range(2, 12))] = 'Hit'
+
+for dealer_upcard in range(2, 9):
+    strategy[('soft', 19, None, 3, dealer_upcard)] = 'Stand'
+for dealer_upcard in range(9, 12):
+    strategy[('soft', 19, None, 3, dealer_upcard)] = 'Hit'
+
+for total in [20, 21]:
+    strategy[('soft', total, None, 3, range(2, 12))] = 'Stand'
+
+def export_three_card_strategy(strategy_dict, output_file):
+    json_strategy = []
+
+    for key, recommendation in strategy_dict.items():
+        hand_type, player_total, pair_value, card_count, dealer_upcard = key
+        
+        # Handle dealer upcard (range or int)
+        if isinstance(dealer_upcard, range):
+            dealer_upcard_start = dealer_upcard.start
+            dealer_upcard_end = dealer_upcard.stop - 1  # Adjust because range is exclusive
         else:
-            dealer_upcard = range(dealer_upcard_start, dealer_upcard_end + 1)
+            dealer_upcard_start = dealer_upcard_end = dealer_upcard
+        
+        json_strategy.append({
+            "hand_type": hand_type,
+            "player_total": player_total,
+            "pair_value": pair_value,
+            "card_count": card_count,
+            "dealer_upcard_start": dealer_upcard_start,
+            "dealer_upcard_end": dealer_upcard_end,
+            "recommendation": recommendation
+        })
 
-        strategy[(hand_type, player_total, pair_value, card_count, dealer_upcard)] = recommendation
+    with open(output_file, 'w') as f:
+        json.dump(json_strategy, f, indent=4)
     
-    return strategy
+    print(f"3-card strategy exported to {output_file}")
 
+export_three_card_strategy(strategy, 'strategies/3_card_strategy.json')
+
+# === Load Strategies JSON files ===
 two_card_strategy = load_strategy_from_json('strategies/2_card_strategy.json')
-strategy = {**two_card_strategy}
+three_card_strategy = load_strategy_from_json('strategies/3_card_strategy.json')
+strategy = {**two_card_strategy, **three_card_strategy}
 
 # === Game Logic Section ===
 def create_deck():
