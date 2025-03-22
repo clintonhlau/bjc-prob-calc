@@ -1,117 +1,12 @@
 import tkinter as tk
 import random
 from itertools import chain
+import json
 
 # === Strategy Guide ===
 # Key = (hand_type, player_total, pair_value, card_count, dealer_upcard)
 # Value = Recommended move
-strategy = {}
 
-# 2 Card Strategies
-# Hard Hands
-for total in range(4, 9):
-    strategy[('hard', total, None, 2, range(2, 12))] = 'Hit'
-
-for dealer_upcard in chain(range(2, 4), range(7, 12)):
-    strategy[('hard', 9, None, 2, dealer_upcard)] = 'Hit'
-    strategy[('hard', 12, None, 2, dealer_upcard)] = 'Hit'
-    strategy[('soft', 17, None, 2, dealer_upcard)] = 'Hit'
-strategy[('hard', 9, None, 2, range(4, 7))] = 'Double'
-
-strategy[('hard', 10, None, 2, range(2, 9))] = 'Double'
-strategy[('hard', 10, None, 2, range(9, 12))] = 'Hit'
-
-strategy[('hard', 11, None, 2, range(2, 11))] = 'Double'
-strategy[('hard', 11, None, 2, 11)] = 'Hit'
-
-strategy[('hard', 12, None, 2, range(4, 7))] = 'Stand'
-
-for total in range(13, 16):
-        strategy[('hard', total, None, 2, range(2, 7))] = 'Stand'
-        strategy[('hard', total, None, 2, range(7, 12))] =  'Hit'
-
-for dealer_upcard in chain(range(2, 7), [10]):
-    strategy[('hard', 16, None, 2, dealer_upcard)] = 'Stand'
-for dealer_upcard in chain(range(7, 10), [11]):
-    strategy[('hard', 16, None, 2, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in chain(range(2, 8), range(9,11)):
-    strategy[('hard', 17, None, 2, dealer_upcard)] = 'Stand'
-for dealer_upcard in [8, 11]:
-    strategy[('hard', 17, None, 2, dealer_upcard)] =  'Hit'
-
-for total in range(18, 22):
-    strategy[('hard', total, None, 2, range(2, 12))] = 'Stand'
-
-# Soft Hands
-for total in range(12, 16):
-    strategy[('soft', total, None, 2, range(2, 12))] = 'Hit'
-
-for dealer_upcard in chain(range(2, 5), range(7, 12)):
-    strategy[('soft', 16, None, 2, dealer_upcard)] = 'Hit'
-    strategy[('pair', None, 4, 2, dealer_upcard)] = 'Hit'
-for dealer_upcard in range(5,7):
-    strategy[('soft', 16, None, 2, dealer_upcard)] = 'Double'
-
-for dealer_upcard in range(4,7):
-    strategy[('soft', 17, None, 2, dealer_upcard)] = 'Double'
-    strategy[('pair', None, 2, 2, dealer_upcard)] = 'Split'
-
-for dealer_upcard in chain([2], range(9, 12)):
-    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Hit'
-for dealer_upcard in range(3, 7):
-    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Double'
-    strategy[('pair', None, 3, 2, dealer_upcard)] = 'Split'
-for dealer_upcard in range(7, 9):
-    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Stand'
-
-for total in range(19, 22):
-    strategy[('soft', total, None, 2, range(2, 12))] = 'Stand'
-
-# Doubles
-for dealer_upcard in chain([2, 3], range(7, 10)):
-    strategy[('pair', None, 2, 2, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in chain([2], range(8, 12)):
-    strategy[('pair', None, 3, 2, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in [5, 6]:
-    strategy[('pair', None, 4, 2, dealer_upcard)] = 'Split'
-
-for dealer_upcard in range(2, 9):
-    strategy[('pair', None, 5, 2, dealer_upcard)] = 'Double'
-for dealer_upcard in range(9, 12):
-    strategy[('pair', None, 5, 2, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in range(2, 7):
-    strategy[('pair', None, 6, 2, dealer_upcard)] = 'Split'
-for dealer_upcard in range(7, 12):
-    strategy[('pair', None, 6, 2, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in range(2, 8):
-    strategy[('pair', None, 7, 2, dealer_upcard)] = 'Split'
-for dealer_upcard in range(8, 12):
-    strategy[('pair', None, 7, 2, dealer_upcard)] = 'Hit'
-
-for pair_value in [8]:
-    strategy[('pair', None, pair_value, 2, range(2, 12))] = 'Split'
-
-for dealer_upcard in chain(range(2, 7), [8,9]):
-    strategy[('pair', None, 9, 2, dealer_upcard)] = 'Split'
-for dealer_upcard in [7, 10, 11]:
-    strategy[('pair', None, 9, 2, dealer_upcard)] = 'Stand'
-
-for pair_value in  [10]:
-    strategy[('pair', None, 10, 2, dealer_upcard)] = 'Stand'
-for pair_value in ['Jack', 'Queen', 'King']:
-    strategy[('pair', None, pair_value, 2, dealer_upcard)] = 'Stand'
-if dealer_upcard == 6:
-    strategy[('pair', None, 10, 2, dealer_upcard)] = 'Split' # unique to blackjack challenge; increase EV
-    for pair_value in ['Jack', 'Queen', 'King']:
-        strategy[('pair', None, pair_value, 2, dealer_upcard)] = 'Split'
-
-for pair_value in ['Ace']:
-    strategy[('pair', None, pair_value, 2, range(2, 12))] = 'Split'
 
 # === Game Logic Section ===
 
