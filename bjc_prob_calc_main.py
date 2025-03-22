@@ -14,51 +14,28 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # 3 Card Strategies
 strategy ={}
 
-for total in [9, 12]:
-    strategy[('hard', total, None, 3, range(2, 12))] = 'Hit'
+for total in range(2, 16):
+    strategy[('hard', total, None, 4, range(2, 12))] = 'Hit'
 
-for dealer_upcard in chain([2], range(7, 12)):
-    strategy[('hard', 10, None, 3, dealer_upcard)] = 'Hit'
-for dealer_upcard in range(3, 7):
-    strategy[('hard', 10, None, 3, dealer_upcard)] = 'Double'
+for dealer_upcard in chain([2, 3], range(7, 12)):
+    strategy[('hard', 16, None, 4, dealer_upcard)] = 'Hit'
+for dealer_upcard in [4, 5, 6]:
+    strategy[('hard', 16, None, 4, dealer_upcard)] = 'Stand'
 
 for dealer_upcard in range(2, 7):
-    strategy[('hard', 11, None, 3, dealer_upcard)] = 'Double'
+    strategy[('hard', 17, None, 4, dealer_upcard)] = 'Stand'
 for dealer_upcard in range(7, 12):
-    strategy[('hard', 11, None, 3, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in chain([2], range(7, 12)):
-    strategy[('hard', 13, None, 3, dealer_upcard)] = 'Hit'
-for dealer_upcard in range(3, 7):
-    strategy[('hard', 13, None, 3, dealer_upcard)] = 'Stand'
-
-for total in [14, 15, 16]:
-    strategy[('hard', total, None, 3, range(2, 7))] = 'Stand'
-for total in [14, 15]:
-    strategy[('hard', total, None, 3, range(7, 12))] = 'Hit'
-
-for dealer_upcard in [7, 8, 11]:
-    strategy[('hard', 16, None, 3, dealer_upcard)] = 'Hit'
-
-for dealer_upcard in range(2, 11):
-    strategy[('hard', 17, None, 3, dealer_upcard)] = 'Stand'
-strategy[('hard', 17, None, 3, 11)] = 'Hit'
+    strategy[('hard', 17, None, 4, dealer_upcard)] = 'Hit'
 
 for total in range(18, 22):
-    strategy[('hard', total, None, 3, range(2, 12))] = 'Stand'
+    strategy[('hard', total, None, 4, range(2, 12))] = 'Stand'
 
 for total in range(2, 19):
-    strategy[('soft', total, None, 3, range(2, 12))] = 'Hit'
+    strategy[('soft', total, None, 4, range(2, 12))] = 'Hit'
 
-for dealer_upcard in range(2, 9):
-    strategy[('soft', 19, None, 3, dealer_upcard)] = 'Stand'
-for dealer_upcard in range(9, 12):
-    strategy[('soft', 19, None, 3, dealer_upcard)] = 'Hit'
+strategy[('soft', 21, None, 4, range(2, 12))] = 'Stand'
 
-for total in [20, 21]:
-    strategy[('soft', total, None, 3, range(2, 12))] = 'Stand'
-
-def export_three_card_strategy(strategy_dict, output_file):
+def export_four_card_strategy(strategy_dict, output_file):
     json_strategy = []
 
     for key, recommendation in strategy_dict.items():
@@ -84,9 +61,9 @@ def export_three_card_strategy(strategy_dict, output_file):
     with open(output_file, 'w') as f:
         json.dump(json_strategy, f, indent=4)
     
-    print(f"3-card strategy exported to {output_file}")
+    print(f"4-card strategy exported to {output_file}")
 
-export_three_card_strategy(strategy, 'strategies/3_card_strategy.json')
+export_four_card_strategy(strategy, 'strategies/4_card_strategy.json')
 
 # === Load Strategies JSON files ===
 two_card_strategy = load_strategy_from_json('strategies/2_card_strategy.json')
