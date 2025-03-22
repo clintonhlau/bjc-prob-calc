@@ -43,6 +43,28 @@ for total in range(18, 22):
     strategy[('hard', total, None, 2, range(2, 12))] = 'Stand'
 
 # Soft Hands
+for total in range(12, 16):
+    strategy[('soft', total, None, 2, range(2, 12))] = 'Hit'
+
+for dealer_upcard in chain(range(2, 5), range(7, 12)):
+    strategy[('soft', 16, None, 2, dealer_upcard)] = 'Hit'
+for dealer_upcard in range(5,7):
+    strategy[('soft', 16, None, 2, dealer_upcard)] = 'Double'
+
+for dealer_upcard in chain(range(2, 4), range(7, 12)):
+    strategy[('soft', 17, None, 2, dealer_upcard)] = 'Hit'
+for dealer_upcard in range(4,7):
+    strategy[('soft', 17, None, 2, dealer_upcard)] = 'Double'
+
+for dealer_upcard in chain([2], range(9, 12)):
+    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Hit'
+for dealer_upcard in range(3, 7):
+    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Double'
+for dealer_upcard in range(7, 9):
+    strategy[('soft', 18, None, 2, dealer_upcard)] = 'Stand'
+
+for total in range(19, 22):
+    strategy[('soft', total, None, 2, range(2, 12))] = 'Stand'
 
 # === Game Logic Section ===
 
