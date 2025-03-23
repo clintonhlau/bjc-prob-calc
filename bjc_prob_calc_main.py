@@ -12,6 +12,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # Key = (hand_type, player_total, pair_value, card_count, dealer_upcard)
 # Value = Recommended move
 
+
 # === Load Strategies JSON files ===
 two_card_strategy = load_strategy_from_json('strategies/2_card_strategy.json')
 three_card_strategy = load_strategy_from_json('strategies/3_card_strategy.json')
@@ -146,19 +147,7 @@ def deal_cards():
         if dealer_total == 21:
             dealer_hand.append(dealer_hidden_card)
             update_ui()
-
-            player_face = get_face_card(player_hand)
-            dealer_face = get_face_card(dealer_hand)
-
-            if face_card_rankings[player_face] > face_card_rankings[dealer_face]:
-                result_label.config(text = f"BLACKJACK ALL AROUND! (5 to 1)\nPlayer's {player_face} beats the Dealer's {dealer_face}")
-                disable_action_buttons()
-            elif face_card_rankings[player_face] < face_card_rankings[dealer_face]:
-                result_label.config(text = f"BLACKJACK ALL AROUND! (3 to 1)\nBut Dealer's {dealer_face} beats Player's {player_face}")
-                disable_action_buttons()
-            else:
-                result_label.config(text = f"BLACKJACK ALL AROUND! (4 to 1)\nPlayer and Dealer have the same 10 value card.")
-                disable_action_buttons()
+            compare_blackjack(player_hand, dealer_hand)
         else:
             result_label.config(text = f"BLACKJACK! (2 to 1)")
             disable_action_buttons()
@@ -169,6 +158,22 @@ def deal_cards():
         result_label.config(text = "Unlucky, Dealer Blackjack! Dealer Wins!")
         disable_action_buttons()
         return
+    
+    enable_action_buttons()
+
+def compare_blackjack(player_hand, dealer_hand):
+    player_face = get_face_card(player_hand)
+    dealer_face = get_face_card(dealer_hand)
+
+    if face_card_rankings[player_face] > face_card_rankings[dealer_face]:
+        result_label.config(text = f"BLACKJACK ALL AROUND! (5 to 1)\nPlayer's {player_face} beats the Dealer's {dealer_face}")
+        disable_action_buttons()
+    elif face_card_rankings[player_face] < face_card_rankings[dealer_face]:
+        result_label.config(text = f"BLACKJACK ALL AROUND! (3 to 1)\nBut Dealer's {dealer_face} beats Player's {player_face}")
+        disable_action_buttons()
+    else:
+        result_label.config(text = f"BLACKJACK ALL AROUND! (4 to 1)\nPlayer and Dealer have the same 10 value card.")
+        disable_action_buttons()
 
     # Update UI
 def update_ui():
@@ -190,6 +195,8 @@ def player_hit():
     update_ui()
     
     if total > 21:
+        dealer_hand.append(dealer_hidden_card)
+        update_ui()
         result_label.config(text="Player BUSTS! Dealer wins.")
         disable_action_buttons()
 
@@ -202,16 +209,16 @@ def player_stand():
     update_ui()  # Update to show both dealer cards
     
     if dealer_total > 21:
-        result_label.config(text=f"Dealer BUSTS! Player wins.")
+        result_label.config(text=f"Dealer BUSTS! Player wins!")
         disable_action_buttons()
     elif dealer_total > player_total:
-        result_label.config(text=f"Dealer wins with {dealer_total}.")
+        result_label.config(text=f"Dealer wins with {dealer_total}")
         disable_action_buttons()
     elif dealer_total < player_total:
-        result_label.config(text=f"Player wins with {player_total}.")
+        result_label.config(text=f"Player wins with {player_total}!")
         disable_action_buttons()
     else:
-        result_label.config(text="Push (Draw).")
+        result_label.config(text="Push (Draw)")
         disable_action_buttons()
 
 def disable_action_buttons():
@@ -230,31 +237,42 @@ dealer_hidden_card = None
 # Main Window Setup
 root = tk.Tk()
 root.title("Blackjack Challenge Calculator")
+root.geometry("600x320")
 
 # UI Components
-player_label = tk.Label(root, text = "Player Hand: ")
-player_label.grid(row=0, column=0, columnspan=2)
+default_font = ("Helvetica", 12)
+root.grid_columnconfigure(0, weight=1)
+root.grid_columnconfigure(1, weight=1)
+for i in range(7):  # Adjust based on total rows
+    root.grid_rowconfigure(i, weight=1)
 
-dealer_label = tk.Label(root, text = "Dealer's Visible Card: ")
-dealer_label.grid(row=1, column=0, columnspan=2)
+player_label = tk.Label(root, text = "Player Hand: ", font=default_font)
+player_label.grid(row=0, column=0, columnspan=2, pady=10, sticky="nsew")
 
-decision_label = tk.Label(root, text="Recommendation: ")
-decision_label.grid(row=2, column=0, columnspan=2)
+dealer_label = tk.Label(root, text = "Dealer's Visible Card: ", font=default_font)
+dealer_label.grid(row=1, column=0, columnspan=2, pady=10, sticky="nsew")
 
-result_label = tk.Label(root, text="")
-result_label.grid(row=3, column=0, columnspan=2)
+decision_label = tk.Label(root, text="Recommendation: ", font=default_font)
+decision_label.grid(row=2, column=0, columnspan=2, pady=10, sticky="nsew")
 
-deal_button = tk.Button(root, text="Deal", command=deal_cards)
-deal_button.grid(row=3, column=0, pady=10)
+result_label = tk.Label(root, text="", wraplength=500, justify="center", font=default_font)
+result_label.grid(row=3, column=0, columnspan=2, pady=10, sticky="nsew")
 
-hit_button = tk.Button(root, text="Hit", command=player_hit)
-hit_button.grid(row=5, column=0, pady=5)
+deal_button = tk.Button(root, text="Deal", command=deal_cards, bg="blue", fg="white")
+deal_button.grid(row=4, column=0, columnspan=2, pady=10, sticky="nsew")
+deal_button.config(width=20)
 
-stand_button = tk.Button(root, text="Stand", command=player_stand)
-stand_button.grid(row=5, column=1, pady=5)
+hit_button = tk.Button(root, text="Hit", command=player_hit, bg="green", fg="white")
+hit_button.grid(row=5, column=0, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
+hit_button.config(width=10)
+
+stand_button = tk.Button(root, text="Stand", command=player_stand, bg="red", fg="white")
+stand_button.grid(row=5, column=1, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
+stand_button.config(width=10)
 
 exit_button = tk.Button(root, text="Exit", command=root.destroy)
-exit_button.grid(row=3, column=1, pady=10)
+exit_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
+exit_button.config(width=20)
 
 # Start GUI loop
 root.mainloop()
