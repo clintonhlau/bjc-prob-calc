@@ -3,7 +3,8 @@ import random
 from itertools import chain
 import json
 import os
-from bjc_strategy_loader import load_strategy_from_json
+from bjc_helpers import calculate_hand_value, get_recommendation, load_strategy_from_json
+from bjc_monte_carlo_sim import run_monte_carlo_sim
 
 # === Set Working Direction ===
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -27,23 +28,6 @@ def create_deck():
     random.shuffle(deck)
     return deck
 
-def calculate_hand_value(hand):
-    value = 0
-    ace_count = 0
-    for card in hand:
-        rank = card[0]
-        if rank.isdigit():
-            value += int(rank)
-        elif rank in ['Jack', 'Queen', 'King']:
-            value += 10
-        else: 
-            ace_count += 1
-            value += 11
-    
-    while value > 21 and ace_count:
-        value -= 10
-        ace_count -= 1
-    return value
 
 def dealer_play():
     global dealer_hand, deck
@@ -53,61 +37,17 @@ def dealer_play():
         dealer_total = calculate_hand_value(dealer_hand)
     return dealer_total
 
-def get_recommendation(player_hand, dealer_card):
-    total = calculate_hand_value(player_hand)
-    dealer_value = dealer_card[0]
-    if dealer_value in ['Jack', 'Queen', 'King']:
-        dealer_value = 10
-    elif dealer_value == 'Ace':
-        dealer_value = 11
-    else:
-        dealer_value = int(dealer_value)
+def run_simulation():
+    # Extract current hand & dealer card
+    player_ranks = [card[0] for card in player_hand]  # Extract ranks like '10', 'Jack'
+    dealer_upcard_rank = dealer_hand[0][0]
 
-    ranks = [card[0] for card in player_hand]
-    card_count = len(player_hand)
-
-    total = calculate_hand_value(player_hand)
-
-    if card_count == 2 and ranks[0] == ranks[1]:
-        hand_type = 'pair'
-        if ranks[0] in ['Jack', 'Queen', 'King', 'Ace']:
-            pair_value = ranks[0]
-        else:
-            pair_value = int(ranks[0])
+    win_rate, draw_rate, loss_rate = run_monte_carlo_sim(player_ranks, dealer_upcard_rank, strategy)
     
-    elif 'Ace' in ranks:
-        hand_type = 'soft'
-        pair_value = None
-    else:
-        hand_type = 'hard'
-        pair_value = None
-    
-    # Search through strategy dictionary for recommendation
-    for key, recommendation in strategy.items():
-        k_hand_type, k_total, k_pair, k_card_count, k_dealer_upcard = key
-
-        if hand_type != k_hand_type:
-            continue
-
-        if hand_type == 'pair':
-            if pair_value != k_pair:
-                continue
-        else:
-            if total != k_total:
-                continue
-
-        if card_count != k_card_count:
-            continue
-
-        if isinstance(k_dealer_upcard, range):
-            if dealer_value not in k_dealer_upcard:
-                continue
-        elif dealer_value != k_dealer_upcard:
-            continue
-
-        return recommendation, total
-    
-    return 'No recommendation found', total
+    # Display result in UI
+    simulation_label.config(
+        text=f"Win: {win_rate:.2f}% | Draw: {draw_rate:.2f}% | Loss: {loss_rate:.2f}%"
+    )
     
 # === UI Section ===
 face_card_rankings = {
@@ -177,7 +117,7 @@ def compare_blackjack(player_hand, dealer_hand):
 
     # Update UI
 def update_ui():
-    recommendation, total = get_recommendation(player_hand, dealer_hand[0])
+    recommendation, total = get_recommendation(player_hand, dealer_hand[0], strategy)
 
     player_label.config(text=f"Player Hand: {total}, {player_hand}")
     
@@ -255,6 +195,9 @@ dealer_label.grid(row=1, column=0, columnspan=2, pady=10, sticky="nsew")
 decision_label = tk.Label(root, text="Recommendation: ", font=default_font)
 decision_label.grid(row=2, column=0, columnspan=2, pady=10, sticky="nsew")
 
+simulation_label = tk.Label(root, text="Simulation Results:")
+simulation_label.grid(row=8, column=0, columnspan=2, pady=10)
+
 result_label = tk.Label(root, text="", wraplength=500, justify="center", font=default_font)
 result_label.grid(row=3, column=0, columnspan=2, pady=10, sticky="nsew")
 
@@ -270,9 +213,13 @@ stand_button = tk.Button(root, text="Stand", command=player_stand, bg="red", fg=
 stand_button.grid(row=5, column=1, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
 stand_button.config(width=10)
 
+simulate_button = tk.Button(root, text="Simulate Odds", command=run_simulation)
+simulate_button.grid(row=7, column=0, columnspan=2, pady=10)
+
 exit_button = tk.Button(root, text="Exit", command=root.destroy)
 exit_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
 exit_button.config(width=20)
 
 # Start GUI loop
-root.mainloop()
+if __name__ == "__main__":
+    root.mainloop()
