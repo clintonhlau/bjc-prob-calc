@@ -1444,7 +1444,25 @@
         "player_total": null,
         "pair_value": 10,
         "card_count": 2,
-        "dealer_upcard_start": 11,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": 10,
+        "card_count": 2,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Split"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": 10,
+        "card_count": 2,
+        "dealer_upcard_start": 7,
         "dealer_upcard_end": 11,
         "recommendation": "Stand"
     },
@@ -1453,7 +1471,25 @@
         "player_total": null,
         "pair_value": "Jack",
         "card_count": 2,
-        "dealer_upcard_start": 11,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "Jack",
+        "card_count": 2,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Split"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "Jack",
+        "card_count": 2,
+        "dealer_upcard_start": 7,
         "dealer_upcard_end": 11,
         "recommendation": "Stand"
     },
@@ -1462,7 +1498,25 @@
         "player_total": null,
         "pair_value": "Queen",
         "card_count": 2,
-        "dealer_upcard_start": 11,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "Queen",
+        "card_count": 2,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Split"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "Queen",
+        "card_count": 2,
+        "dealer_upcard_start": 7,
         "dealer_upcard_end": 11,
         "recommendation": "Stand"
     },
@@ -1471,7 +1525,25 @@
         "player_total": null,
         "pair_value": "King",
         "card_count": 2,
-        "dealer_upcard_start": 11,
+        "dealer_upcard_start": 2,
+        "dealer_upcard_end": 5,
+        "recommendation": "Stand"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "King",
+        "card_count": 2,
+        "dealer_upcard_start": 6,
+        "dealer_upcard_end": 6,
+        "recommendation": "Split"
+    },
+    {
+        "hand_type": "pair",
+        "player_total": null,
+        "pair_value": "King",
+        "card_count": 2,
+        "dealer_upcard_start": 7,
         "dealer_upcard_end": 11,
         "recommendation": "Stand"
     },
