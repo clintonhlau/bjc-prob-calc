@@ -91,6 +91,7 @@ def deal_cards():
     dealer_hidden_card = deck.pop()  # Hidden initially
 
     update_ui()
+    run_simulation()
 
     # CHeck for Blackjacks
     player_total = calculate_hand_value(player_hand)
@@ -171,6 +172,7 @@ def player_hit():
     player_hand.append(deck.pop())
     total = calculate_hand_value(player_hand)
     update_ui()
+    run_simulation()
     
     if total > 21:
         dealer_hand.append(dealer_hidden_card)
@@ -193,6 +195,7 @@ def player_double():
     # Draw one card
     player_hand.append(deck.pop())
     update_ui()
+    run_simulation()
     
     total = calculate_hand_value(player_hand)
     
@@ -212,7 +215,8 @@ def player_stand():
     player_total = calculate_hand_value(player_hand)
     
     update_ui()  # Update to show both dealer cards
-    
+    run_simulation()
+
     if dealer_total > 21:
         result_label.config(text=f"Dealer BUSTS! Player wins!")
         payout_win("standard")
@@ -266,7 +270,7 @@ dealer_label.grid(row=1, column=0, columnspan=2, pady=10, sticky="nsew")
 decision_label = tk.Label(root, text="Recommendation: ", font=default_font)
 decision_label.grid(row=2, column=0, columnspan=2, pady=10, sticky="nsew")
 
-simulation_label = tk.Label(root, text="Simulation Results:")
+simulation_label = tk.Label(root, text="Simulation Results: Calculating...", font=default_font)
 simulation_label.grid(row=8, column=0, columnspan=2, pady=10)
 
 result_label = tk.Label(root, text="", wraplength=500, justify="center", font=default_font)
@@ -290,9 +294,6 @@ double_button.config(width=10)
 stand_button = tk.Button(root, text="Stand", command=player_stand, bg="red", fg="white")
 stand_button.grid(row=5, column=1, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
 stand_button.config(width=10)
-
-simulate_button = tk.Button(root, text="Simulate Odds", command=run_simulation)
-simulate_button.grid(row=7, column=0, columnspan=2, pady=10)
 
 exit_button = tk.Button(root, text="Exit", command=root.destroy)
 exit_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
