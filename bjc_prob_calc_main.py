@@ -66,9 +66,10 @@ def get_face_card(hand):
 
 player_balance = 100
 bet_amount = 10
+current_bet = 0
 
 def deal_cards():
-    global deck, player_hand, dealer_hand, dealer_hidden_card, player_balance
+    global deck, player_hand, dealer_hand, dealer_hidden_card, player_balance, current_bet
 
     if player_balance < bet_amount:
         result_label.config(text="Balance is too low!")
@@ -76,6 +77,7 @@ def deal_cards():
         return
     
     player_balance -= bet_amount
+    current_bet = bet_amount
     update_balance_label()
     
     deck = create_deck()
@@ -110,34 +112,30 @@ def deal_cards():
         disable_action_buttons()
         return
     
+    current_bet = bet_amount
     enable_action_buttons()
 
 def update_balance_label():
     balance_label.config(text=f"Balance: ${player_balance}")
 
 def payout_win(result):
-    global player_balance
+    global player_balance, current_bet
 
     if result == "standard" or result == "blackjack":
-        player_balance += bet_amount * 2
-        update_balance_label()
-        disable_action_buttons()
+        player_balance += current_bet * 2
     elif result == "blackjack5":
-        player_balance += bet_amount * 5
-        update_balance_label()
-        disable_action_buttons()
+        player_balance += current_bet * 5
     elif result == "blackjack4":
-        player_balance += bet_amount * 4
-        update_balance_label()
-        disable_action_buttons()
+        player_balance += current_bet * 4
     elif result == "blackjack3":
-        player_balance += bet_amount * 3
-        update_balance_label()
-        disable_action_buttons()
+        player_balance += current_bet * 3
+
+    update_balance_label()
+    disable_action_buttons()
 
 def payout_draw():
     global player_balance
-    player_balance += bet_amount  # Return bet
+    player_balance += current_bet  # Return bet
     update_balance_label()
     disable_action_buttons()
 
@@ -180,6 +178,33 @@ def player_hit():
         result_label.config(text="Player BUSTS! Dealer wins.")
         disable_action_buttons()
 
+def player_double():
+    global player_balance, current_bet
+    
+    if player_balance < bet_amount:
+        result_label.config(text="Not enough balance to double!")
+        return
+    
+    # Deduct additional bet
+    player_balance -= bet_amount
+    current_bet += bet_amount
+    update_balance_label()
+    
+    # Draw one card
+    player_hand.append(deck.pop())
+    update_ui()
+    
+    total = calculate_hand_value(player_hand)
+    
+    if total > 21:
+        dealer_hand.append(dealer_hidden_card)
+        update_ui()
+        result_label.config(text="Player BUSTS after Double! Dealer wins.")
+        disable_action_buttons()
+    else:
+        player_stand()
+        disable_action_buttons()
+
 def player_stand():
     dealer_hand.append(dealer_hidden_card)
     
@@ -204,10 +229,16 @@ def player_stand():
 def disable_action_buttons():
     hit_button.config(state='disabled')
     stand_button.config(state='disabled')
+    double_button.config(state='disabled')
 
 def enable_action_buttons():
     hit_button.config(state='normal')
     stand_button.config(state='normal')
+
+    if len(player_hand) in [2, 3] and player_balance >= bet_amount:
+        double_button.config(state='normal')
+    else:
+        double_button.config(state='disabled')
 
 deck = []
 player_hand = []
@@ -217,7 +248,7 @@ dealer_hidden_card = None
 # Main Window Setup
 root = tk.Tk()
 root.title("Blackjack Challenge Calculator")
-root.geometry("600x500")
+root.geometry("800x500")
 
 # UI Components
 default_font = ("Helvetica", 12)
@@ -251,6 +282,10 @@ deal_button.config(width=20)
 hit_button = tk.Button(root, text="Hit", command=player_hit, bg="green", fg="white")
 hit_button.grid(row=5, column=0, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
 hit_button.config(width=10)
+
+double_button = tk.Button(root, text="Double", command=player_double, bg="orange", fg="white")
+double_button.grid(row=5, column=2, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
+double_button.config(width=10)
 
 stand_button = tk.Button(root, text="Stand", command=player_stand, bg="red", fg="white")
 stand_button.grid(row=5, column=1, pady=10, padx=10, sticky="nsew", ipadx=20, ipady=10)
