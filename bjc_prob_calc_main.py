@@ -64,8 +64,19 @@ def get_face_card(hand):
             return rank
     return '10'
 
+player_balance = 100
+bet_amount = 10
+
 def deal_cards():
-    global deck, player_hand, dealer_hand, dealer_hidden_card
+    global deck, player_hand, dealer_hand, dealer_hidden_card, player_balance
+
+    if player_balance < bet_amount:
+        result_label.config(text="Balance is too low!")
+        disable_action_buttons()
+        return
+    
+    player_balance -= bet_amount
+    update_balance_label()
     
     deck = create_deck()
     player_hand.clear()
@@ -90,7 +101,7 @@ def deal_cards():
             compare_blackjack(player_hand, dealer_hand)
         else:
             result_label.config(text = f"BLACKJACK! (2 to 1)")
-            disable_action_buttons()
+            payout_win("blackjack")
         return
     elif dealer_total == 21:
         dealer_hand.append(dealer_hidden_card)
@@ -101,19 +112,48 @@ def deal_cards():
     
     enable_action_buttons()
 
+def update_balance_label():
+    balance_label.config(text=f"Balance: ${player_balance}")
+
+def payout_win(result):
+    global player_balance
+
+    if result == "standard" or result == "blackjack":
+        player_balance += bet_amount * 2
+        update_balance_label()
+        disable_action_buttons()
+    elif result == "blackjack5":
+        player_balance += bet_amount * 5
+        update_balance_label()
+        disable_action_buttons()
+    elif result == "blackjack4":
+        player_balance += bet_amount * 4
+        update_balance_label()
+        disable_action_buttons()
+    elif result == "blackjack3":
+        player_balance += bet_amount * 3
+        update_balance_label()
+        disable_action_buttons()
+
+def payout_draw():
+    global player_balance
+    player_balance += bet_amount  # Return bet
+    update_balance_label()
+    disable_action_buttons()
+
 def compare_blackjack(player_hand, dealer_hand):
     player_face = get_face_card(player_hand)
     dealer_face = get_face_card(dealer_hand)
 
     if face_card_rankings[player_face] > face_card_rankings[dealer_face]:
         result_label.config(text = f"BLACKJACK ALL AROUND! (5 to 1)\nPlayer's {player_face} beats the Dealer's {dealer_face}")
-        disable_action_buttons()
+        payout_win("blackjack5")
     elif face_card_rankings[player_face] < face_card_rankings[dealer_face]:
         result_label.config(text = f"BLACKJACK ALL AROUND! (3 to 1)\nBut Dealer's {dealer_face} beats Player's {player_face}")
-        disable_action_buttons()
+        payout_win("blackjack3")
     else:
         result_label.config(text = f"BLACKJACK ALL AROUND! (4 to 1)\nPlayer and Dealer have the same 10 value card.")
-        disable_action_buttons()
+        payout_win("blackjack4")
 
     # Update UI
 def update_ui():
@@ -150,16 +190,16 @@ def player_stand():
     
     if dealer_total > 21:
         result_label.config(text=f"Dealer BUSTS! Player wins!")
-        disable_action_buttons()
+        payout_win("standard")
     elif dealer_total > player_total:
         result_label.config(text=f"Dealer wins with {dealer_total}")
         disable_action_buttons()
     elif dealer_total < player_total:
         result_label.config(text=f"Player wins with {player_total}!")
-        disable_action_buttons()
+        payout_win("standard")
     else:
         result_label.config(text="Push (Draw)")
-        disable_action_buttons()
+        payout_draw()
 
 def disable_action_buttons():
     hit_button.config(state='disabled')
@@ -177,7 +217,7 @@ dealer_hidden_card = None
 # Main Window Setup
 root = tk.Tk()
 root.title("Blackjack Challenge Calculator")
-root.geometry("600x320")
+root.geometry("600x500")
 
 # UI Components
 default_font = ("Helvetica", 12)
@@ -200,6 +240,9 @@ simulation_label.grid(row=8, column=0, columnspan=2, pady=10)
 
 result_label = tk.Label(root, text="", wraplength=500, justify="center", font=default_font)
 result_label.grid(row=3, column=0, columnspan=2, pady=10, sticky="nsew")
+
+balance_label = tk.Label(root, text=f"Balance: ${player_balance}", font=default_font)
+balance_label.grid(row=9, column=0, columnspan=2, pady=10)
 
 deal_button = tk.Button(root, text="Deal", command=deal_cards, bg="blue", fg="white")
 deal_button.grid(row=4, column=0, columnspan=2, pady=10, sticky="nsew")
