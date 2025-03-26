@@ -37,6 +37,11 @@ def dealer_play():
         dealer_total = calculate_hand_value(dealer_hand)
     return dealer_total
 
+def is_blackjack(ranks):
+    return len(ranks) == 2 and (
+        'Ace' in ranks and any(r in ['10', 'Jack', 'Queen', 'King'] for r in ranks)
+    )
+
 def run_simulation():
     global total_bet, win_payout, ev
     # Extract current hand & dealer card
@@ -45,11 +50,39 @@ def run_simulation():
 
     win_rate, draw_rate, loss_rate = run_monte_carlo_sim(player_ranks, dealer_upcard_rank, strategy)
     
+    
     # === Calculate EV ===
     total_bet = current_bet if current_bet > 0 else bet_amount
     win_payout = total_bet
 
-    ev = (win_rate / 100 * win_payout) + (draw_rate/ 100 * 0) + (loss_rate / 100 *(-total_bet))
+    if is_blackjack(player_ranks):
+        if dealer_upcard_rank in ['10', 'Jack', 'Queen', 'King']:
+            # Get ranks of both 10-value cards
+            player_face = next(r for r in player_ranks if r != 'Ace')
+            dealer_face = dealer_upcard_rank
+
+            face_card_rankings = {
+                'King': 4,
+                'Queen': 3,
+                'Jack': 2,
+                '10': 1
+            }
+
+            player_rank = face_card_rankings.get(player_face, 1)
+            dealer_rank = face_card_rankings.get(dealer_face, 1)
+
+            if player_rank > dealer_rank:
+                blackjack_payout = 5
+            elif player_rank == dealer_rank:
+                blackjack_payout = 4
+            else:
+                blackjack_payout = 3
+        else:
+            blackjack_payout = 2  # Dealer doesn't have 10-value card
+
+        ev = (win_rate / 100 * win_payout * blackjack_payout) + (draw_rate/100 * 0) + (loss_rate / 100 * (-win_payout))
+    else:
+        ev = (win_rate / 100 * win_payout) + (draw_rate / 100 * 0) + (loss_rate / 100 * (-win_payout))
 
     if ev >= 0:
         color = 'green'
@@ -186,6 +219,13 @@ def player_hit():
     total = calculate_hand_value(player_hand)
     update_ui()
     run_simulation()
+    
+    if len(player_hand) == 5 and total <= 21:
+        dealer_hand.append(dealer_hidden_card)
+        update_ui()
+        result_label.config(text="FIVE CARD TRICK! Player wins 1:1 payout.")
+        payout_win("standard")
+        return
     
     if total > 21:
         dealer_hand.append(dealer_hidden_card)
