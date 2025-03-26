@@ -105,11 +105,3 @@ def get_recommendation(player_hand, dealer_card, strategy):
         return recommendation, total
 
     return 'No recommendation found', total
-
-def card_value(rank):
-    if rank in ['Jack', 'Queen', 'King']:
-        return 10
-    elif rank == 'Ace':
-        return 11
-    else:
-        return int(rank)
