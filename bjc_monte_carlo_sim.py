@@ -1,6 +1,13 @@
 import numpy as np
 from bjc_helpers import calculate_hand_value, get_recommendation, card_value
 
+face_card_rankings = {
+    'King': 4,
+    'Queen': 3,
+    'Jack': 2,
+    '10': 1
+}
+
 def create_sim_deck():
     ranks = np.array([2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'])
     deck = np.tile(ranks, 4)
@@ -43,12 +50,20 @@ def run_monte_carlo_sim(player_hand_ranks, dealer_upcard_rank, strategy):
         dealer_upcard_tuple = (dealer_upcard_rank, 'Spades')
         recommendation, total = get_recommendation(player_hand, dealer_upcard_tuple, strategy)
 
-        while recommendation == 'Hit':
+        doubled = False
+
+        if recommendation == 'Double':
+            # Simulate one extra card and double the bet
             next_card = temp_deck.pop()
             player_hand.append((next_card, 'Diamonds'))
-            recommendation, total = get_recommendation(player_hand, dealer_upcard_tuple, strategy)
-            if total > 21:
-                break
+            doubled = True
+        else:
+            while recommendation == 'Hit':
+                next_card = temp_deck.pop()
+                player_hand.append((next_card, 'Diamonds'))
+                recommendation, total = get_recommendation(player_hand, dealer_upcard_tuple, strategy)
+                if total > 21:
+                    break
 
         player_total = calculate_hand_value(player_hand)
 
