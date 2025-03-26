@@ -38,15 +38,27 @@ def dealer_play():
     return dealer_total
 
 def run_simulation():
+    global total_bet, win_payout, ev
     # Extract current hand & dealer card
     player_ranks = [card[0] for card in player_hand]  # Extract ranks like '10', 'Jack'
     dealer_upcard_rank = dealer_hand[0][0]
 
     win_rate, draw_rate, loss_rate = run_monte_carlo_sim(player_ranks, dealer_upcard_rank, strategy)
     
+    # === Calculate EV ===
+    total_bet = current_bet if current_bet > 0 else bet_amount
+    win_payout = total_bet
+
+    ev = (win_rate / 100 * win_payout) + (draw_rate/ 100 * 0) + (loss_rate / 100 *(-total_bet))
+
+    if ev >= 0:
+        color = 'green'
+    else:
+        color = 'red'
+
     # Display result in UI
     simulation_label.config(
-        text=f"Win: {win_rate:.2f}% | Draw: {draw_rate:.2f}% | Loss: {loss_rate:.2f}%"
+        text=f"Win: {win_rate:.2f}% | Draw: {draw_rate:.2f}% | Loss: {loss_rate:.2f}%\nEV: ${ev:.2f}", fg=color
     )
     
 # === UI Section ===
@@ -169,6 +181,7 @@ def update_ui():
     result_label.config(text="")  # Clear result
 
 def player_hit():
+    global dealer_total
     player_hand.append(deck.pop())
     total = calculate_hand_value(player_hand)
     update_ui()
@@ -179,6 +192,15 @@ def player_hit():
         update_ui()
         result_label.config(text="Player BUSTS! Dealer wins.")
         disable_action_buttons()
+    elif total == 21:
+        dealer_hand.append(dealer_hidden_card)
+        dealer_total = dealer_play()
+        update_ui()
+        run_simulation()
+
+        if dealer_total < total:
+            result_label.config(text=f"Player wins with 21!")
+            payout_win("standard")
 
 def player_double():
     global player_balance, current_bet

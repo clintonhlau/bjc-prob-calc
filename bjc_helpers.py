@@ -55,39 +55,47 @@ def get_recommendation(player_hand, dealer_card, strategy):
     ranks = [card[0] for card in player_hand]
     card_count = len(player_hand)
 
-    total = calculate_hand_value(player_hand)
-
+    # === Determine hand_type and pair_value (if needed) ===
     if card_count == 2 and ranks[0] == ranks[1]:
         hand_type = 'pair'
         if ranks[0] in ['Jack', 'Queen', 'King', 'Ace']:
             pair_value = ranks[0]
         else:
             pair_value = int(ranks[0])
-    
-    elif 'Ace' in ranks:
-        hand_type = 'soft'
-        pair_value = None
     else:
-        hand_type = 'hard'
+        ace_count = ranks.count('Ace')
+        if ace_count > 0:
+            # Temporarily count all Aces as 11, then reduce if needed
+            raw_value = 0
+            for r in ranks:
+                if r in ['Jack', 'Queen', 'King']:
+                    raw_value += 10
+                elif r == 'Ace':
+                    raw_value += 11
+                else:
+                    raw_value += int(r)
+            if raw_value > 21:
+                hand_type = 'hard'
+            else:
+                hand_type = 'soft'
+        else:
+            hand_type = 'hard'
         pair_value = None
-    
-    # Search through strategy dictionary for recommendation
+
+    # === Search for matching strategy ===
     for key, recommendation in strategy.items():
         k_hand_type, k_total, k_pair, k_card_count, k_dealer_upcard = key
 
         if hand_type != k_hand_type:
             continue
-
         if hand_type == 'pair':
             if pair_value != k_pair:
                 continue
         else:
             if total != k_total:
                 continue
-
         if card_count != k_card_count:
             continue
-
         if isinstance(k_dealer_upcard, range):
             if dealer_value not in k_dealer_upcard:
                 continue
@@ -95,7 +103,7 @@ def get_recommendation(player_hand, dealer_card, strategy):
             continue
 
         return recommendation, total
-    
+
     return 'No recommendation found', total
 
 def card_value(rank):
